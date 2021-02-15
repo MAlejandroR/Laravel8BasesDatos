@@ -28,18 +28,61 @@
 </ol>
 
 * Como todas las configuraciones, debemos ir al fichero de configuración de bases de datos
+
 ![Fichero de configuracion de base de datos](./documentacion/imagenes/config_base_datos.png)
   
 Si vemos el contenido, vemos que es un array llamado **connections** el cual contiene tantas una serie de conexiones.
 
 Podemos añadir más si necesitáramos, pero para este caso vamos a usar la ya conocida **mysql**
 
-Si accedemos a ese elemento vemos su configuración 
+Si accedemos a ese elemento vemos su configuración:
+<pre> 
+'mysql' => [
+        'driver' => 'mysql',
+        'url' => env('DATABASE_URL'),
+        'host' => env('DB_HOST', '127.0.0.1'),
+        'port' => env('DB_PORT', '3306'),
+        'database' => env('DB_DATABASE', 'forge'),
+        'username' => env('DB_USERNAME', 'forge'),
+        'password' => env('DB_PASSWORD', ''),
+        'password' => env('DB_PASSWORD', ''),
+    //.....
+</pre>
 
-) 
+Vamos como todos los parámetros, en lugar de asignarle directamente el valor, usamos la función **env**.
 
-  
+Esta función lo que hace es buscar el valor en el fichero *****.env*****, fichero ubicado en la carpeta raíz del proyecto
+Si esta función localiza el parámetro que tiene como primer argumento en el fichero, retorna ese valor, si no, se retorna el valor que tiene como segundo argumento
+
+El fichero *****.env***** es un fichero con información un tanto confidencial, por ser un fichero oculto, git no lo subirá al repositorio.
+
+![Fichero .env](./documentacion/imagenes/fichero_env.png)
+
+Por lo tanto es mejor asignar los valores en el fichero de configuración
+<pre>
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel8basesdatos
+DB_USERNAME=root
+DB_PASSWORD=root
+</pre>
+
+Ahora debemos de crear la base de datos laravel8basedatos 
+
+![Crear base de datos](./documentacion/imagenes/crear_base_datos.png)
+
 ### Instalar las migraciones
+*Una vez creada la base datos vemos que está vacía
+
+ ![Crear base de datos](./documentacion/imagenes/base_datos_vacia.png)
+
+Ahora lo primero que debemos hacer es instalar las migraciones
+
+ php artisan migrate:install
+
+
+
 
 ### Crear una migración para cada tabla
 
